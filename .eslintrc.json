@@ -7,10 +7,14 @@
    ],
    "rules": {
       "comma-spacing": "error",
+      "eqeqeq": ["error", "always"],
       "no-trailing-spaces": ["error", { "skipBlankLines": true }],
       "@typescript-eslint/indent": ["error",3],
       "@typescript-eslint/semi": ["error","never"],
       "@typescript-eslint/explicit-function-return-type": "warn",
-      "@typescript-eslint/no-empty-function": "error"
+      "@typescript-eslint/no-empty-function": "error",
+      "@typescript-eslint/no-misused-promises": ["warn", { "checksVoidReturn": false }],
+      "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true }],
+      "@typescript-eslint/no-extraneous-class": ["warn", { "allowStaticOnly": false }]
    }
 }

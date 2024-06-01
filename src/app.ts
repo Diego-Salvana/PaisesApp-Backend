@@ -2,25 +2,20 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import { dbConnection } from './database/dbConnection'
-import authRouter from './routes/auth'
-import favoriteRouter from './routes/favorite'
+import authRouter from './routes/auth.routes'
+import favoriteRouter from './routes/favorite.routes'
 
-const PORT = process.env.PORT ?? 5000
+void dbConnection()
 
 const app = express()
-
-dbConnection()
-   .then(() => console.log('DB conectada 📖'))
-   .catch((err) => {
-      console.error(err)
-      throw new Error('Error al iniciar DB')
-   })
-
 app.use(cors())
 app.use(express.json())
+app.disable('x-powered-by')
 
 app.use('/auth', authRouter)
 app.use('/favorites', favoriteRouter)
+
+const PORT = process.env.PORT ?? 5000
 
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto: ${PORT} 🔥`))
 
