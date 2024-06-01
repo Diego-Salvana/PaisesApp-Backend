@@ -1,0 +1,16 @@
+{
+   "parserOptions": {
+      "project": "./tsconfig.json"
+   },
+   "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+   ],
+   "rules": {
+      "comma-spacing": "error",
+      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+      "@typescript-eslint/indent": ["error",3],
+      "@typescript-eslint/semi": ["error","never"],
+      "@typescript-eslint/explicit-function-return-type": "warn",
+      "@typescript-eslint/no-empty-function": "error"
+   }
+}

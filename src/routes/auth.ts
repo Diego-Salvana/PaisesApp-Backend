@@ -1,13 +1,13 @@
-import { Router } from 'express';
-import { loginCtrl, registerCtrl, deleteCtrl, refreshTokenCtrl } from '../controllers/auth.controller';
-import { checkJWT } from '../middlewares/jwtCheck.middleware';
-import { loginValidator, registerValidator } from '../middlewares/authValidation.middleware';
+import { Router } from 'express'
+import { loginCtrl, registerCtrl, deleteCtrl, refreshTokenCtrl } from '../controllers/auth.controller'
+import { checkJWT } from '../middlewares/jwtCheck.middleware'
+import { loginValidator, registerValidator } from '../middlewares/authValidation.middleware'
 
-const router = Router();
+const router = Router()
 
-router.post('/register', registerValidator, registerCtrl);
-router.post('/login', loginValidator, loginCtrl);
-router.delete('/delete', checkJWT, deleteCtrl);
-router.get('/refresh', checkJWT, refreshTokenCtrl);
+router.post('/register', registerValidator, registerCtrl)
+router.post('/login', loginValidator, loginCtrl)
+router.delete('/delete', checkJWT, deleteCtrl)
+router.get('/refresh', checkJWT, refreshTokenCtrl)
 
-export default router;
+export default router

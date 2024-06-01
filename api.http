@@ -1,0 +1,17 @@
+### Login user
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+	"email": "elpepe10@gmail.com",
+	"password": "asdasd"
+}
+
+### Register user
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+   "email": "elpepe10@gmail.com",
+   "password": "asdasd"
+}
