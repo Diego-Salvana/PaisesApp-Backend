@@ -4,7 +4,16 @@ export interface Auth {
 }
 
 export interface User extends Auth {
-   id: any
+   id?: any
    username: string
    favorites?: string[]
+}
+
+export interface RegisterResponse {
+   username: string
+   JWToken: string
+}
+
+export interface LoginResponse extends RegisterResponse {
+   favorites: string[]
 }

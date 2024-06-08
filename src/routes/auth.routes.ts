@@ -1,13 +1,21 @@
 import { Router } from 'express'
 import { UserController } from '../controllers/user.controller'
-import { checkJWT } from '../middlewares/jwtCheck.middleware'
-import { loginValidator, registerValidator } from '../middlewares/validator-chains'
+import { UserModel } from '../models/user'
+import { refreshToken } from '../services/refresh-token'
+import { checkJWT } from '../middlewares/jwt-check'
+import { updateValidator, loginValidator, registerValidator } from '../middlewares/validator-chains'
 
-const router = Router()
+const authRouter = (userModel: typeof UserModel): Router => {
+   const router = Router()
+   const userController = new UserController(userModel)
 
-router.post('/register', registerValidator, UserController.register)
-router.post('/login', loginValidator, UserController.login)
-router.delete('/delete', checkJWT, UserController.delete)
-router.get('/refresh', checkJWT, UserController.refreshToken)
+   router.post('/register', registerValidator, userController.register)
+   router.post('/login', loginValidator, userController.login)
+   router.patch('/update', updateValidator, checkJWT, userController.update)
+   router.delete('/delete', checkJWT, userController.delete)
+   router.get('/refresh', checkJWT, refreshToken)
 
-export default router
+   return router
+}
+
+export { authRouter }

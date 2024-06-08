@@ -3,8 +3,8 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-	"email": "elpepe10@gmail.com",
-	"password": "asdasd"
+	"email": "usuario6@test.com",
+	"password": "123456"
 }
 
 ### Register user
@@ -12,6 +12,37 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-   "email": "elpepe10@gmail.com",
-   "password": "asdasd"
+   "username": "Usuario",
+   "email": "usuario6@test.com",
+   "password": "123456"
 }
+
+### Update user
+PATCH http://localhost:5000/auth/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NzAyNTUwLCJleHAiOjE3MjAyOTQ1NTB9.LuRKk933qAJeiOU0Cm7JXxdGZ1pDZ0PqKjE5NmD_rNM
+
+{
+   "username": "Usuario-6",
+   "email": "usuario6@test.com"
+}
+
+### Delete user
+DELETE http://localhost:5000/auth/delete
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NzAwNzQ5LCJleHAiOjE3MjAyOTI3NDl9.76rbEsU-K_F_tloiiroQgBKumTMhxwrCtkVbwhMH7I4
+
+### Refresh token
+GET http://localhost:5000/auth/refresh
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NjM2MDY1LCJleHAiOjE3MjAyMjgwNjV9.mGvyG_EHFbMapM6pdCJIRgvfhx-BsO-rtuh_Ga5qfIA
+
+### Add favorite
+PATCH  http://localhost:5000/favorites/add/col
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NzAyNTUwLCJleHAiOjE3MjAyOTQ1NTB9.LuRKk933qAJeiOU0Cm7JXxdGZ1pDZ0PqKjE5NmD_rNM
+
+### Remove favorite
+PATCH  http://localhost:5000/favorites/remove/col
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NzAyNTUwLCJleHAiOjE3MjAyOTQ1NTB9.LuRKk933qAJeiOU0Cm7JXxdGZ1pDZ0PqKjE5NmD_rNM

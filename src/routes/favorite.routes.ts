@@ -1,10 +1,17 @@
 import { Router } from 'express'
 import { UserController } from '../controllers/user.controller'
-import { checkJWT } from '../middlewares/jwtCheck.middleware'
+import { UserModel } from '../models/user'
+import { checkJWT } from '../middlewares/jwt-check'
+import { cca3CodeValidator } from '../middlewares/validator-chains'
 
-const router = Router()
+const favoriteRouter = (userModel: typeof UserModel): Router => {
+   const router = Router()
+   const userController = new UserController(userModel)
 
-router.patch('/add', checkJWT, UserController.addFavoriteCountry)
-router.patch('/remove', checkJWT, UserController.removeFavoriteCountry)
+   router.patch('/add/:cca3Code', cca3CodeValidator, checkJWT, userController.addFavoriteCountry)
+   router.patch('/remove/:cca3Code', cca3CodeValidator, checkJWT, userController.removeFavoriteCountry)
 
-export default router
+   return router
+}
+
+export { favoriteRouter }
