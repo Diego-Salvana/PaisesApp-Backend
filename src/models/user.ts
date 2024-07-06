@@ -5,6 +5,8 @@ import { generateToken } from '../utils/jwt-handler'
 import { HttpError, ServerError } from '../utils/error-handler'
 import { Auth, LoginResponse, RegisterResponse, UpdateUser, User } from '../interfaces/user.interface'
 
+// TODO: quitar este comentario
+
 export class UserModel {
    static async createUser (user: User): Promise<RegisterResponse> {
       const passwordHash = await encrypt(user.password)
