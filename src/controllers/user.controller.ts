@@ -47,9 +47,10 @@ export class UserController {
 
    update = async ({ userPayload, body }: RequestExt, res: Response): Promise<Response> => {
       const payload = userPayload as JwtPayload
+      const { newUsername, password, newPassword } = body
 
       try {
-         const updatedUser = await this.userModel.update(payload.email, body.email, body.username)
+         const updatedUser = await this.userModel.update(payload.email, { newUsername, password, newPassword })
 
          return res.status(200).send(updatedUser)
       } catch (e: any) {

@@ -9,6 +9,12 @@ export interface User extends Auth {
    favorites?: string[]
 }
 
+export interface UpdateUser {
+   newUsername?: string
+   password?: string
+   newPassword?: string
+}
+
 export interface RegisterResponse {
    username: string
    JWToken: string

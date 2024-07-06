@@ -16,7 +16,8 @@ const loginValidator = [
 
 const updateValidator = [
    body('username', 'Username cannot be empty').trim().isLength({ min: 1 }).optional(),
-   body('email', 'Wrong email format').trim().isEmail().normalizeEmail().optional(),
+   body('password', 'Wrong password format').trim().isLength({ min: 6 }).optional(),
+   body('newPassword', 'Wrong password format').trim().isLength({ min: 6 }).optional(),
    expressValidationResult
 ]
 
