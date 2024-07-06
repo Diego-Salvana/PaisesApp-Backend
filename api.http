@@ -23,8 +23,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzdWFyaW82QHRlc3QuY29tIiwiaWF0IjoxNzE3NzAyNTUwLCJleHAiOjE3MjAyOTQ1NTB9.LuRKk933qAJeiOU0Cm7JXxdGZ1pDZ0PqKjE5NmD_rNM
 
 {
-   "username": "Usuario-6",
-   "email": "usuario6@test.com"
+   "password": "123456",
+   "newPassword": "123456"
 }
 
 ### Delete user

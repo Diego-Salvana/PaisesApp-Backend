@@ -3,7 +3,7 @@ import { userMongo } from '../schema/User'
 import { encrypt, verify } from '../utils/bcryptjs-handler'
 import { generateToken } from '../utils/jwt-handler'
 import { HttpError, ServerError } from '../utils/error-handler'
-import { Auth, LoginResponse, RegisterResponse, User } from '../interfaces/user.interface'
+import { Auth, LoginResponse, RegisterResponse, UpdateUser, User } from '../interfaces/user.interface'
 
 export class UserModel {
    static async createUser (user: User): Promise<RegisterResponse> {
@@ -49,29 +49,53 @@ export class UserModel {
       return { username, favorites, JWToken }
    }
 
-   static async update (currentEmail: string, newEmail?: string, newUsername?: string): Promise<LoginResponse> {
-      if (newEmail === undefined && newUsername === undefined) {
-         throw new HttpError('BadRequest', 'Email or password must be provided')
+   static async update (email: string, { newUsername, password, newPassword }: UpdateUser): Promise<LoginResponse> {
+      if (newUsername === undefined && password === undefined && newPassword === undefined) {
+         throw new HttpError('BadRequest', 'Username or password must be provided')
       }
 
-      let updateUserResult
+      const userData: UpdateUser = { newUsername }
+      
+      if (password !== undefined || newPassword !== undefined) {
+         let currentUser
+         
+         try {
+            currentUser = await userMongo.findOne({ email })
+         } catch (e) {
+            console.log(e)
+            throw new ServerError('Error login user')
+         }
+
+         if (currentUser === null) throw new HttpError('NotFound', 'User not found')
+
+         const hashedPassword = currentUser.password
+         const passwordIsCorrect = await verify(password ?? '', hashedPassword)
+
+         if (!passwordIsCorrect) throw new HttpError('Unauthorized', 'Invalid password')
+         if (newPassword === undefined) throw new HttpError('BadRequest', 'New password is required')
+
+         const newPasswordHash = await encrypt(newPassword)
+         userData.newPassword = newPasswordHash
+      }
+
+      let updatedUser
 
       try {
-         updateUserResult = await userMongo.findOneAndUpdate(
-            { email: currentEmail }, { email: newEmail, username: newUsername }, { new: true }
+         updatedUser = await userMongo.findOneAndUpdate(
+            { email },
+            { username: userData.newUsername, password: userData.newPassword },
+            { new: true }
          )
       } catch (e: any) {
          console.log(e)
 
-         if (e.code === 11000) throw new HttpError('AlreadyExists', 'Email already exists')
-
          throw new ServerError('Error updating user')
       }
 
-      if (updateUserResult === null) throw new HttpError('NotFound', 'User not found')
+      if (updatedUser === null) throw new HttpError('NotFound', 'User not found')
 
-      const JWToken = generateToken(updateUserResult.email)
-      const { username, favorites } = updateUserResult
+      const JWToken = generateToken(updatedUser.email)
+      const { username, favorites } = updatedUser
 
       return { username, favorites, JWToken }
    }
