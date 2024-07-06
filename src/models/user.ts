@@ -56,11 +56,7 @@ export class UserModel {
 
       const userData: UpdateUser = { newUsername }
       
-<<<<<<< HEAD
       if (password !== undefined || newPassword !== undefined) {
-=======
-      if (password !== undefined && newPassword !== undefined) {
->>>>>>> d6d6390f1c1d7313e099645943a18462ad2f0ec5
          let currentUser
          
          try {
@@ -73,16 +69,16 @@ export class UserModel {
          if (currentUser === null) throw new HttpError('NotFound', 'User not found')
 
          const hashedPassword = currentUser.password
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
+         const passwordIsCorrect = await verify(password, hashedPassword)
+
+         if (!passwordIsCorrect) throw new HttpError('Unauthorized', 'Invalid password')
+=========
          const passwordIsCorrect = await verify(password ?? '', hashedPassword)
 
          if (!passwordIsCorrect) throw new HttpError('Unauthorized', 'Invalid password')
          if (newPassword === undefined) throw new HttpError('BadRequest', 'New password is required')
-=======
-         const passwordIsCorrect = await verify(password, hashedPassword)
-
-         if (!passwordIsCorrect) throw new HttpError('Unauthorized', 'Invalid password')
->>>>>>> d6d6390f1c1d7313e099645943a18462ad2f0ec5
+>>>>>>>>> Temporary merge branch 2
 
          const newPasswordHash = await encrypt(newPassword)
          userData.newPassword = newPasswordHash
